@@ -11,7 +11,7 @@ import numpy as np
 from plot import plot
 
 
-COCO_ANN_PATH_VAL = 'data/coco/captions_val2014.json'
+COCO_ANN_PATH_VAL = '/home/shai/Up-Down-Captioner/data/coco/captions_val2014.json'
 OUTPUTS_PATH = 'outputs/'
 
 sys.path.append('./external/coco/PythonAPI/')

@@ -119,6 +119,8 @@ def solve(proto, snapshot, weights, gpus, timing, uid, rank):
 
 
 if __name__ == '__main__':
+    import os
+    os.chdir("/home/shai/Up-Down-Captioner/")
     import argparse
     parser = argparse.ArgumentParser()
 

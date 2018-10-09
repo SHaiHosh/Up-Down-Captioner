@@ -41,16 +41,16 @@ def beam_decode(
         for word in f:
             vocab.append(word.strip())
     print 'Loaded {:,} words into caption vocab'.format(len(vocab))
-    
+
     caffe.init_log(0, 1)
     caffe.log('Using device %s' % str(gpu))
     caffe.set_device(int(gpu))
     caffe.set_mode_gpu()
-    
+
     net = caffe.Net(model, weights, caffe.TEST)
     print 'Loaded proto {} with weights {}'.format(model,weights)
     net.layers[0].load_dataset()
-    
+
     id_to_caption = {}
     iteration = 0
     while True:
@@ -58,9 +58,9 @@ def beam_decode(
         out = net.forward()
         image_ids = net.blobs['image_id'].data
         captions = net.blobs['caption'].data
-        scores = net.blobs['log_prob'].data     
+        scores = net.blobs['log_prob'].data
         batch_size = image_ids.shape[0]
-        
+
         if captions.shape[0] == batch_size:
             # Decoding a compact net
             beam_size = captions.shape[2]
@@ -71,7 +71,7 @@ def beam_decode(
                     cap = translate(vocab, captions[n][0][b])
                     score = scores[n][0][b]
                     if iteration == 0:
-                        print '[%d] %.2f %s' % (b,score,cap)        
+                        print '[%d] %.2f %s' % (b,score,cap)
         else:
             # Decoding an unrolled net
             beam_size = captions.shape[0] / batch_size
